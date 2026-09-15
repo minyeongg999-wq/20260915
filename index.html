@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>김민영 진로 포트폴리오</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <div class="page-wrapper">
+
+    <header class="profile">
+      <div class="profile-photo">
+        <img src="image.gif" alt="프로필 사진">
+      </div>
+      <div class="profile-info">
+        <h1 class="name">김민영</h1>
+        <p class="info-line">고등학교: 선린인터넷고등학교</p>
+        <p class="info-line">학과(전공): 정보보호과</p>
+        <p class="info-line">웹 개발자 (web developer)</p>
+      </div>
+    </header>
+
+    <section class="career-activities">
+      <h2 class="section-title">진로 활동</h2>
+      <div class="career-boxes">
+        <div class="career-box" id="activity-log" data-pdf="진로활동.pdf">
+          <div class="career-icon">🗂️</div>
+          <p class="career-title">강점·진로탐색 활동지</p>
+          <p class="sub-text">(클릭시 세부내용)</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="main-activities">
+      <h2 class="section-title">주요활동, 프로젝트</h2>
+      <div class="activity-cards">
+        <div class="activity-card" id="club" data-detail="club">
+          <div class="activity-icon">🎭</div>
+          <p>동아리</p>
+        </div>
+        <div class="activity-card" id="outside-activity" data-detail="outside">
+          <div class="activity-icon">🌐</div>
+          <p>교외</p>
+        </div>
+        <div class="activity-card" id="in-school" data-detail="inschool">
+          <div class="activity-icon">🏫</div>
+          <p>교내</p>
+        </div>
+      </div>
+    </section>
+
+  </div>
+
+  <!-- 상세보기 모달 (PDF, 텍스트 공용) -->
+  <div class="detail-modal" id="detail-modal">
+    <div class="detail-modal-content">
+      <div class="detail-modal-header">
+        <span class="detail-modal-title" id="detail-modal-title">상세보기</span>
+        <div class="detail-modal-actions" id="detail-modal-actions"></div>
+        <button class="detail-modal-close" id="detail-modal-close" aria-label="닫기">&times;</button>
+      </div>
+      <div class="detail-modal-body" id="detail-modal-body"></div>
+    </div>
+  </div>
+
+  <!-- 동아리(Puck 프로젝트) 소개 템플릿: 화면에는 보이지 않고 모달 클릭시에만 표시됨 -->
+  <template id="detail-club">
+    <div class="detail-text">
+      <p class="detail-desc">
+        <strong>Puck</strong>는 macOS 화면 위를 돌아다니며 음성을 인식하고 Mac을 직접 제어하는
+        AI 데스크톱 펫 겸 에이전트 프로젝트입니다. 캐릭터 형태로 화면 위에 항상 떠 있는
+        <strong>Puck</strong> 앱과, 채팅·작업공간·Git 상태·코드 에디터·터미널을 제공하는
+        <strong>PuckClient</strong> 앱, 두 개의 Swift 앱으로 구성된 모노레포입니다.
+      </p>
+
+      <h4>주요 기능</h4>
+      <ul>
+        <li>음성 인식 및 대화 기능</li>
+        <li>셸 명령 실행(run_shell), AppleScript 실행, UI 요소 조작</li>
+        <li>네이티브 SwiftUI 코드 에디터 &amp; 터미널 패널</li>
+        <li>커스텀 아바타(캐릭터 커스터마이징) 지원</li>
+        <li>API 키 또는 로컬 CLI를 통한 AI(Claude, OpenAI 등) 연동</li>
+      </ul>
+
+      <h4>기술 스택</h4>
+      <p class="detail-tags">
+        <span class="tag">Swift / SwiftUI</span>
+        <span class="tag">Node.js</span>
+        <span class="tag">AppleScript</span>
+        <span class="tag">AI / LLM 연동</span>
+      </p>
+
+      <a class="repo-link" href="https://github.com/Speaki-e/puck" target="_blank" rel="noopener">GitHub 저장소 보기 →</a>
+    </div>
+  </template>
+
+  <!-- 교외(한국코드페어 - Braye 프로젝트) 소개 템플릿 -->
+  <template id="detail-outside">
+    <div class="detail-text">
+      <p class="detail-contest">
+        <span class="tag tag-contest">한국코드페어 SW공모전 출품작</span>
+      </p>
+      <p class="detail-desc">
+        <strong>한국코드페어</strong>는 과학기술정보통신부가 주최하고 한국지능정보사회진흥원이 주관하는
+        국내 최대 규모의 청소년 SW·AI 경진대회로, SW공모전·해커톤·온라인 SW공부방 등의 부문을 통해
+        생활·사회 문제를 소프트웨어로 해결하는 역량을 겨루는 대회입니다. 이 대회의 SW공모전 부문에
+        <strong>Braye</strong>라는 이름으로 출품한 프로젝트를 소개합니다.
+      </p>
+
+      <h4>프로젝트 소개</h4>
+      <p class="detail-desc">
+        <strong>Braye</strong>는 시각장애인이 PDF 파일을 다운로드하면 그 내용을 분석해
+        실시간으로 점자로 변환·출력해주는 하드웨어 장치입니다. 가변저항(슬라이드 볼륨)을 손가락(골무)으로
+        훑어 글자를 넘기고, 서보모터가 점자 핀(필라멘트)을 밀어 올려 반대쪽 손가락으로 점자를 바로
+        읽을 수 있도록 만들었습니다.
+      </p>
+
+      <img class="detail-image" src="braye-usage.jpg" alt="Braye 사용 예시: 1. 골무로 슬라이드 훑기 2. 반대 손가락을 점자 홈에 올리기 3. 점자 실시간 출력">
+
+      <h4>작동 방식</h4>
+      <ul>
+        <li><strong>1. 골무로 슬라이드 훑기</strong> — 골무를 낀 손가락으로 슬라이드 가변저항 위를 좌우로 움직여 읽을 글자를 선택함</li>
+        <li><strong>2. 반대 손가락을 점자 홈에 올리기</strong> — 반대쪽 손가락을 점자 출력 홈에 올리면 해당 글자의 점자가 출력됨</li>
+        <li><strong>3. 점자 실시간 출력</strong> — 서보모터가 한 글자씩 점자 핀을 움직여, 손가락으로 실시간으로 읽어나갈 수 있음</li>
+      </ul>
+
+      <h4>핵심 기능</h4>
+      <ul>
+        <li>PDF 파일 텍스트 분석 및 점자 변환</li>
+        <li>슬라이드 가변저항을 이용한 글자 탐색 입력</li>
+        <li>서보모터 기반 점자 핀 실시간 구동</li>
+        <li>시각장애인을 위한 독립적인 PDF 점자 리더기</li>
+      </ul>
+
+      <h4>기술 스택</h4>
+      <p class="detail-tags">
+        <span class="tag">아두이노 / 마이크로컨트롤러</span>
+        <span class="tag">서보모터</span>
+        <span class="tag">가변저항 센서</span>
+        <span class="tag">PDF 텍스트 분석</span>
+      </p>
+
+      <p class="detail-note">※ 작품 기획서는 아직 준비 중이며, 추후 업데이트될 예정입니다.</p>
+    </div>
+  </template>
+
+  <!-- 교내(아두이노 기반 손 떨림 보조 장치) 연구계획서 템플릿 -->
+  <template id="detail-inschool">
+    <div class="detail-text">
+      <p class="detail-contest">
+        <span class="tag tag-contest">교내 연구계획서</span>
+      </p>
+
+      <h4>연구 동기 및 목적</h4>
+      <p class="detail-desc">
+        파킨슨병이나 수전증 등으로 손 떨림을 겪는 중·장년층과 노년층이 늘고 있으며, 손이 떨리면
+        글씨 쓰기·식사·양치·물건 잡기처럼 평소 쉽게 하던 행동도 어려워질 수 있습니다. 이 연구에서는
+        아두이노와 관성 측정 장치(IMU)로 손의 움직임과 기울기를 감지하고, 서보모터로 생활용품의
+        흔들림을 줄여 주는 <strong>탈부착형 손 떨림 보조 장치</strong>를 개발하는 것을 목표로 합니다.
+      </p>
+
+      <h4>아이디어 내용</h4>
+      <p class="detail-desc">
+        관성 측정 장치가 손의 기울기와 흔들림을 감지하면, 아두이노가 흔들림의 방향과 정도를 판단해
+        서보모터로 반대 방향의 보정 움직임을 만들어 생활용품이 과하게 흔들리지 않도록 돕습니다.
+        숟가락 등 한 가지 물건 전용이 아니라, 칫솔·펜 등 여러 생활용품에 붙였다 뗄 수 있는
+        <strong>탈부착형 구조</strong>로 설계해 활용 범위를 넓힌 점이 특징입니다.
+      </p>
+
+      <h4>연구 결과물의 활용 분야</h4>
+      <ul>
+        <li>파킨슨병·수전증 환자, 노화로 손 떨림이 심해진 사람들의 식사·양치·필기 보조</li>
+        <li>복지 기기, 생활 보조 기기, 고령자 보조 장치 분야로 확장 가능</li>
+      </ul>
+
+      <h4>팀원 역할</h4>
+      <ul>
+        <li><strong>김민영</strong> — 아두이노 회로 구성, 센서·서보모터 동작 실험, 시제품 제작 및 구조 개선</li>
+        <li><strong>최준영</strong> — 자료 조사, 아이디어 정리, 보고서·발표 자료 작성</li>
+      </ul>
+
+      <h4>주요 연구 일정</h4>
+      <ul>
+        <li><strong>1단계</strong> — 손 떨림으로 인한 생활 속 문제점 및 기존 보조 장치 조사</li>
+        <li><strong>2단계</strong> — 아두이노·IMU·서보모터·탈부착 기구 등 장치 기본 구조 설계</li>
+        <li><strong>3단계</strong> — 센서·아두이노·서보모터 연결 및 기본 동작 실험</li>
+        <li><strong>4단계</strong> — 탈부착형 보조 기구 제작 및 실제 생활용품 적용·개선</li>
+        <li><strong>5단계</strong> — 제작 결과 정리 및 보고서·발표 자료 완성</li>
+      </ul>
+
+      <h4>기대 효과</h4>
+      <p class="detail-desc">
+        하나의 장치를 여러 생활용품에 탈부착해 사용할 수 있어 활용 범위가 넓고, 아두이노 기반이라
+        비교적 저렴한 비용으로 제작하면서도 계속 기능을 개선할 수 있습니다. 손 떨림이 있는 사람들과
+        고령자의 생활을 조금 더 편하게 돕는 보조 기술이라는 점에서 의미가 있습니다.
+      </p>
+
+      <h4>기술 스택</h4>
+      <p class="detail-tags">
+        <span class="tag">아두이노</span>
+        <span class="tag">관성 측정 장치(IMU)</span>
+        <span class="tag">서보모터</span>
+        <span class="tag">탈부착형 구조 설계</span>
+      </p>
+    </div>
+  </template>
+
+  <script src="script.js"></script>
+</body>
+</html>
